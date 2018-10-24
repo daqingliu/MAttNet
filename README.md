@@ -24,7 +24,7 @@ Examples are shown as follows:
 1. Clone the MAttNet repository
 
 ```
-git clone --recursive https://github.com/lichengunc/MAttNet
+git clone --recursive https://github.com/daqingliu/MAttNet
 ```
 
 2. Prepare the submodules and associated data
