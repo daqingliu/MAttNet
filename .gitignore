@@ -1,5 +1,6 @@
 /data/*
 !/data/README.md
+/output/*
 /cache/*
 .ipynb_checkpoints
 *.pyc
