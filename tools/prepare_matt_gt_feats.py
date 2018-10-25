@@ -65,7 +65,7 @@ def extract_feats(params):
     model.eval()
     loader.resetIterator(split)
 
-    pbar = tqdm(total=len(loader.sentences))
+    pbar = tqdm(total=len(loader.split_ix[split]))
     while True:
         data = loader.getTestBatch(split, model_opt)
         ann_ids = data['ann_ids']
@@ -75,6 +75,11 @@ def extract_feats(params):
         image_id = data['image_id']
 
         for i, sent_id in enumerate(sent_ids):
+            feat_h5 = osp.join('./data/matt_gt_feats', params['dataset_splitBy'], str(image_id)+'_'+str(sent_id)+'.h5')
+
+            if os.path.exists(feat_h5):
+                continue
+
             # expand labels
             label = labels[i:i+1]      # (1, label.size(1))
             max_len = (label != 0).sum().data[0]
@@ -86,7 +91,6 @@ def extract_feats(params):
             sub_feat = sub_feat.data.cpu().numpy()
             loc_feat = loc_feat.data.cpu().numpy()
 
-            feat_h5 = osp.join('./data/matt_gt_feats', params['dataset_splitBy'], str(image_id)+'_'+str(sent_id)+'.h5')
             f = h5py.File(feat_h5, 'w')
             f.create_dataset('sub_feat', dtype=np.float32, data=sub_feat)
             f.create_dataset('loc_feat', dtype=np.float32, data=loc_feat)
@@ -106,7 +110,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='refcocog', help='dataset name: refclef, refcoco, refcoco+, refcocog')
     parser.add_argument('--splitBy', type=str, default='umd', help='splitBy: unc, google, berkeley')
-    parser.add_argument('--split', type=str, default='train', help='split: testAB or val, etc')
+    parser.add_argument('--split', type=str, default='test', help='split: testAB or val, etc')
     parser.add_argument('--id', type=str, default="mrcn_cmr_with_st", help='model id name')
     args = parser.parse_args()
     params = vars(args)
