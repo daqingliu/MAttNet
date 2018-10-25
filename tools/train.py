@@ -76,7 +76,7 @@ def lossFun(loader, optimizer, model, mm_crit, att_crit, opt, iter):
   T['model'] = time.time()-tic
 
   # return 
-  return loss.data[0], T, data['bounds']['wrapped']
+  return loss.item(), T, data['bounds']['wrapped']
 
 
 def main(args):
