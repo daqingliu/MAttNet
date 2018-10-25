@@ -154,6 +154,28 @@ class JointMatching(nn.Module):
     self.rel_matching = RelationMatching(opt['jemb_dim'], opt['word_vec_size'],
                                          opt['jemb_dim'], opt['jemb_drop_out']) 
 
+  def extract_sub_loc_feats(self, feats, labels):    
+    # defined by Yulei
+    pool5 = feats['pool5']
+    fc7 = feats['fc7']
+    lfeats = feats['lfeats']
+    dif_lfeats = feats['dif_lfeats']
+    
+    # expression encoding    
+    context, hidden, embedded = self.rnn_encoder(labels)
+
+    # weights on [sub; loc]
+    weights = F.softmax(self.weight_fc(hidden)) # (n, 3)
+
+    # subject matching
+    sub_attn, sub_phrase_emb = self.sub_attn(context, embedded, labels)
+    sub_feats, sub_grid_attn, att_scores = self.sub_encoder(pool5, fc7, sub_phrase_emb) # (n, fc7_dim+att_dim), (n, 49), (n, num_atts)
+
+    # location matching
+    loc_attn, loc_phrase_emb = self.loc_attn(context, embedded, labels)
+    loc_feats = self.loc_encoder(lfeats, dif_lfeats)  # (n, 512)
+
+    return sub_feats, loc_feats
 
   def forward(self, pool5, fc7, lfeats, dif_lfeats, cxt_fc7, cxt_lfeats, labels):
     """
