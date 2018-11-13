@@ -91,8 +91,8 @@ def main(args):
   feats_h5 = osp.join('cache/feats', dataset_splitBy, 'mrcn', file_name)
 
   f = h5py.File(feats_h5, 'w')
-  fc7_set   = f.create_dataset('fc7',   (num_dets, 2048), dtype=np.float32)
-  pool5_set = f.create_dataset('pool5', (num_dets, 1024), dtype=np.float32)
+  fc7_set   = f.create_dataset('fc7',   (num_dets, 4096), dtype=np.float32)
+  pool5_set = f.create_dataset('pool5', (num_dets, 512), dtype=np.float32)
 
   # extract
   feats_dir = '%s_%s_%s' % (args.net_name, args.imdb_name, args.tag)
@@ -117,9 +117,9 @@ def main(args):
 if __name__ == '__main__':
 
   parser = argparse.ArgumentParser()
-  parser.add_argument('--imdb_name', default='coco_minus_refer', help='image databased trained on.')
-  parser.add_argument('--net_name', default='res101')
-  parser.add_argument('--iters', default=1250000, type=int)
+  parser.add_argument('--imdb_name', default='faster_rcnn', help='image databased trained on.')
+  parser.add_argument('--net_name', default='vgg16')
+  parser.add_argument('--iters', default=1190000, type=int)
   parser.add_argument('--tag', default='notime')
 
   parser.add_argument('--dataset', type=str, default='refcoco', help='dataset name: refclef, refcoco, refcoco+, refcocog')

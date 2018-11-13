@@ -93,7 +93,7 @@ def extract_feats(params, split_list):
                 break
         pbar.close()
 
-    torch.save(matt_gt_feats, osp.join('./data/matt', params['dataset_splitBy'] + '_' + 'matt_gt_feats' + '.pth'))
+    torch.save(matt_gt_feats, osp.join('./data/matt_vgg', params['dataset_splitBy'] + '_' + 'matt_vgg_gt_feats' + '.pth'))
 
     return
 
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, default='refcocog', help='dataset name: refclef, refcoco, refcoco+, refcocog')
     parser.add_argument('--splitBy', type=str, default='umd', help='splitBy: unc, google, berkeley')
-    parser.add_argument('--id', type=str, default="mrcn_cmr_with_st", help='model id name')
+    parser.add_argument('--id', type=str, default="vgg_with_st", help='model id name')
     args = parser.parse_args()
     params = vars(args)
 
