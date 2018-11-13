@@ -80,6 +80,7 @@ class SubjectEncoder(nn.Module):
     - attn      : (n, 49)
     - att_scores: (n, num_atts)
     """
+    fc7 = fc7.unsqueeze(-1).unsqueeze(-1).repeat(1,1,7,7)
     batch, grids = pool5.size(0), pool5.size(2)*pool5.size(3)
 
     # normalize and reshape pool5 & fc7

@@ -73,13 +73,12 @@ def main(args):
 
   print('Done.')
 
-
 if __name__ == '__main__':
 
   parser = argparse.ArgumentParser()
-  parser.add_argument('--imdb_name', default='coco_minus_refer', help='image databased trained on.')
-  parser.add_argument('--net_name', default='res101')
-  parser.add_argument('--iters', default=1250000, type=int)
+  parser.add_argument('--imdb_name', default='faster_rcnn', help='image databased trained on.')
+  parser.add_argument('--net_name', default='vgg16')
+  parser.add_argument('--iters', default=1190000, type=int)
   parser.add_argument('--tag', default='notime')
 
   parser.add_argument('--dataset', type=str, default='refcoco', help='dataset name: refclef, refcoco, refcoco+, refcocog')

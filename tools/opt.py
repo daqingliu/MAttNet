@@ -9,9 +9,9 @@ def parse_opt():
     parser.add_argument('--splitBy', type=str, default='unc', help='who splits this dataset')
     parser.add_argument('--start_from', type=str, default=None, help='continuing training from saved model')
     # FRCN setting
-    parser.add_argument('--imdb_name', default='coco_minus_refer', help='image databased trained on.')
-    parser.add_argument('--net_name', default='res101', help='net_name: res101 or vgg16')
-    parser.add_argument('--iters', default=1250000, type=int, help='iterations we trained for faster R-CNN')
+    parser.add_argument('--imdb_name', default='faster_rcnn', help='image databased trained on.')
+    parser.add_argument('--net_name', default='vgg16', help='net_name: res101 or vgg16')
+    parser.add_argument('--iters', default=1190000, type=int, help='iterations we trained for faster R-CNN')
     parser.add_argument('--tag', default='notime', help='on default tf, don\'t change this!')
     # Visual Encoder Setting
     parser.add_argument('--visual_sample_ratio', type=float, default=0.3, help='ratio of same-type objects over different-type objects')
@@ -63,7 +63,7 @@ def parse_opt():
     parser.add_argument('--losses_log_every', type=int, default=25, help='How often do we snapshot losses, for inclusion in the progress dump? (0 = disable)')
     parser.add_argument('--load_best_score', type=int, default=1, help='Do we load previous best score when resuming training.')      
     # misc
-    parser.add_argument('--id', type=str, default='0', help='an id identifying this run/job.')
+    parser.add_argument('--id', type=str, default='vgg_cocog', help='an id identifying this run/job.')
     parser.add_argument('--seed', type=int, default=24, help='random number generator seed to use')
     parser.add_argument('--gpuid', type=int, default=0, help='which gpu to use, -1 = use CPU')
     

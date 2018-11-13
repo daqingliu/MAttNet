@@ -73,9 +73,11 @@ class GtMRCNLoader(Loader):
     """
     self.head_feats_dir = head_feats_dir
     self.mrcn = inference_no_imdb.Inference(args)
-    assert args.net_name == 'res101'
-    self.pool5_dim = 1024
-    self.fc7_dim = 2048
+    # assert args.net_name == 'res101'
+    # self.pool5_dim = 1024
+    # self.fc7_dim = 2048
+    self.pool5_dim = 512
+    self.fc7_dim = 4096
 
   # load different kinds of feats
   def loadFeats(self, Feats):

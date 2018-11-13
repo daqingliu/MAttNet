@@ -40,7 +40,10 @@ def get_imdb_name(imdb_name):
   elif imdb_name == 'coco_minus_refer':
     return {'TRAIN_IMDB': "coco_2014_train_minus_refer_valtest+coco_2014_valminusminival",
             'TEST_IMDB' : "coco_2014_minival"}
-            
+  elif imdb_name == 'faster_rcnn':
+    return {'TRAIN_IMDB': "coco_2014_train_minus_refer_valtest+coco_2014_valminusminival",
+            'TEST_IMDB' : "coco_2014_minival"}
+
 class Inference:
 
   def __init__(self, args):
@@ -80,8 +83,12 @@ class Inference:
     net.cuda()
 
     # Load model
-    model = osp.join(mrcn_dir, 'output/%s/%s/%s/%s_mask_rcnn_iter_%s.pth' % \
-      (self.net_name, get_imdb_name(self.imdb_name)['TRAIN_IMDB'], self.tag, self.net_name, self.iters))
+    if self.net_name == 'res101':
+      model = osp.join(mrcn_dir, 'output/%s/%s/%s/%s_mask_rcnn_iter_%s.pth' % \
+        (self.net_name, get_imdb_name(self.imdb_name)['TRAIN_IMDB'], self.tag, self.net_name, self.iters))
+    elif self.net_name == 'vgg16':
+      model = osp.join(mrcn_dir, 'output/%s/%s/%s/%s_faster_rcnn_iter_%s.pth' % \
+        (self.net_name, get_imdb_name(self.imdb_name)['TRAIN_IMDB'], self.tag, self.net_name, self.iters))
     assert osp.isfile(model)
     net.load_state_dict(torch.load(model))
     print('pretrained-model loaded from [%s].' % model)
