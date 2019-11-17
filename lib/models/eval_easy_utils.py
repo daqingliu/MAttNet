@@ -89,14 +89,15 @@ def eval_split(loader, model, crit, split, opt):
   model.eval()
 
   # evaluate attributes
-  overall = eval_attributes(loader, model, split, opt)
+  # overall = eval_attributes(loader, model, split, opt)
+  overall = None
 
   # initialize
   loader.resetIterator(split)
-  n = 0
+  n = {}
   loss_sum = 0
   loss_evals = 0
-  acc = 0
+  acc = {}
   predictions = []
   finish_flag = False
   model_time = 0
@@ -146,8 +147,10 @@ def eval_split(loader, model, crit, split, opt):
       loss_evals += 1
 
       # compute accuracy
+      sent_len = len(loader.Sentences[sent_id]['tokens'])
+      n[sent_len] = n.get(sent_len, 0) + 1
       if pred_ix == gd_ix:
-        acc += 1
+        acc[sent_len] = acc.get(sent_len, 0) + 1
 
       # relative ann_id
       rel_ix = rel_ixs[pred_ix]
@@ -185,15 +188,16 @@ def eval_split(loader, model, crit, split, opt):
     # print
     ix0 = data['bounds']['it_pos_now']
     ix1 = data['bounds']['it_max']
-    if verbose:
-      print('evaluating [%s] ... image[%d/%d]\'s sents, acc=%.2f%%, (%.4f), model time (per sent) is %.2fs' % \
-            (split, ix0, ix1, acc*100.0/loss_evals, loss, model_time/len(sent_ids)))
+    # if verbose:
+    #   print('evaluating [%s] ... image[%d/%d]\'s sents, acc=%.2f%%, (%.4f), model time (per sent) is %.2fs' % \
+    #         (split, ix0, ix1, acc*100.0/loss_evals, loss, model_time/len(sent_ids)))
     model_time = 0
 
     # if we already wrapped around the split
     if finish_flag or data['bounds']['wrapped']:
       break
 
+  import pdb;  pdb.set_trace()
   return loss_sum/loss_evals, acc/loss_evals, predictions, overall
 
 

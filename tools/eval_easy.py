@@ -70,17 +70,17 @@ def evaluate(params):
   val_loss, acc, predictions, overall = eval_utils.eval_split(loader, model, crit, split, model_opt)
   print('Comprehension on %s\'s %s (%s sents) is %.2f%%' % \
         (params['dataset_splitBy'], params['split'], len(predictions), acc*100.)) 
-  print('attribute precision : %.2f%%' % (overall['precision']*100.0))
-  print('attribute recall    : %.2f%%' % (overall['recall']*100.0))
-  print('attribute f1        : %.2f%%' % (overall['f1']*100.0))       
+  # print('attribute precision : %.2f%%' % (overall['precision']*100.0))
+  # print('attribute recall    : %.2f%%' % (overall['recall']*100.0))
+  # print('attribute f1        : %.2f%%' % (overall['f1']*100.0))       
 
   # save
   out_dir = osp.join('cache', 'results', params['dataset_splitBy'], 'easy')
   if not osp.isdir(out_dir):
     os.makedirs(out_dir)
   out_file = osp.join(out_dir, params['id']+'_'+params['split']+'.json')
-  with open(out_file, 'w') as of:
-    json.dump({'predictions': predictions, 'acc': acc, 'overall': overall}, of)
+  # with open(out_file, 'w') as of:
+  #   json.dump({'predictions': predictions, 'acc': acc, 'overall': overall}, of)
 
   # write to results.txt
   f = open('experiments/easy_results.txt', 'a')
