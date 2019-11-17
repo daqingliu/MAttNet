@@ -1,5 +1,10 @@
 # PyTorch Implementation of MAttNet
 
+## Extract features for NMTree
+1. Make sure the orignal MAttNet works well.
+2. ``python save_matt_gt_feats.py --dataset [dataset] --split_by [split]''
+3. ``python save_matt_det_feats.py --dataset [dataset] --split_by [split]''
+
 ## Introduction
 
 This repository is Pytorch implementation of [MAttNet: Modular Attention Network for Referring Expression Comprehension](https://arxiv.org/pdf/1801.08186.pdf) in [CVPR 2018](http://cvpr2018.thecvf.com/).
