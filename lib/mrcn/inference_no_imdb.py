@@ -13,7 +13,7 @@ import time
 import numpy as np
 import pprint
 from scipy.misc import imread, imresize
-import cv2
+# import cv2
 
 import torch
 from torch.autograd import Variable
